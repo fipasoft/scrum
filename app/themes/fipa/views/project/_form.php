@@ -1,66 +1,53 @@
-<div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'project-form',
 	'enableAjaxValidation'=>false,
+    'htmlOptions'=> array('class' => 'validar')
 )); ?>
-
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
-	<?php echo $form->errorSummary($model); ?>
+<div class="form fvalidator">
+<fieldset>
+<legend>Datos.</legend>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-		<?php echo $form->error($model,'id'); ?>
+		<?php echo $form->label($model,'Estado'); ?><span class="obligatorio">*</span><br />
+		<?php echo $form->dropDownList($model,'sproject_id',Sproject::DropDownListElements()); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'sproject_id'); ?>
-		<?php echo $form->textField($model,'sproject_id'); ?>
-		<?php echo $form->error($model,'sproject_id'); ?>
+        <div class="revisa noExiste Project key">
+		<?php echo $form->label($model,'Clave'); ?><span class="obligatorio">*</span><br />
+		<?php echo $form->textField($model,'key',array('size'=>12,'maxlength'=>12, 'class'=>'elemento')); ?>
+		<?php if(!$model->isNewRecord){ ?>
+            <input type="hidden" value="<?php echo $model->key; ?>" class="valido"/>
+        <?php } ?>
+        <div class="recipiente">
+        </div>
+        
+        </div>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'key'); ?>
-		<?php echo $form->textField($model,'key',array('size'=>12,'maxlength'=>12)); ?>
-		<?php echo $form->error($model,'key'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
+		<?php echo $form->label($model,'nombre'); ?><span class="obligatorio">*</span><br />
 		<?php echo $form->textField($model,'name',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'name'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'starts'); ?>
-		<?php echo $form->textField($model,'starts'); ?>
-		<?php echo $form->error($model,'starts'); ?>
+		<?php echo $form->label($model,'Inicia'); ?><br/>
+		<?php echo $form->textField($model,'starts', array('class'=>'_fecha_ _opcional_','size'=>'10','maxlength'=>'10',
+		      'value'=>($model->starts !="" && $model->starts!="0000-00-00" ? Utils::convierteFecha($model->starts) : ""))); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'ends'); ?>
-		<?php echo $form->textField($model,'ends'); ?>
-		<?php echo $form->error($model,'ends'); ?>
+		<?php echo $form->label($model,'Finaliza'); ?><br/>
+		<?php echo $form->textField($model,'ends', array('class'=>'_fecha_ _opcional_','size'=>'10','maxlength'=>'10',
+              'value'=>($model->ends !="" && $model->ends!="0000-00-00" ? Utils::convierteFecha($model->ends) : "")))?>
 	</div>
+</fieldset>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'saved_at'); ?>
-		<?php echo $form->textField($model,'saved_at'); ?>
-		<?php echo $form->error($model,'saved_at'); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'modified_in'); ?>
-		<?php echo $form->textField($model,'modified_in'); ?>
-		<?php echo $form->error($model,'modified_in'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
-
+    <div class="rowform buttons derecha">
+        <?php echo CHtml::Button('Cancelar',array('id'=>'cancelar', 'class'=>'btnCancelar')); ?>
+        <?php echo CHtml::Button($model->isNewRecord ? 'Agregar' : 'Guardar',array('id'=>'aceptar')); ?>
+    </div>
+    </div><!-- form -->
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

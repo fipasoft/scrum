@@ -5,14 +5,13 @@ $this->breadcrumbs=array(
 	'Update',
 );
 
-$this->menu=array(
-	array('label'=>'List Project', 'url'=>array('index')),
-	array('label'=>'Create Project', 'url'=>array('create')),
-	array('label'=>'View Project', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Project', 'url'=>array('admin')),
-);
 ?>
+<h1>Editar proyecto</h1>
 
-<h1>Update Project <?php echo $model->id; ?></h1>
-
+<div class="menucrud">
+<?php
+    echo CHtml::link('Volver <img src="'.Yii::app()->theme->baseUrl.'/img/system/volver.png"/>', 
+                        array('index'));
+ ?>
+</div>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

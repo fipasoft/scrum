@@ -40,8 +40,7 @@ class Historical extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, user, description, controller, action, model, record, saved_at', 'required'),
-			array('id', 'numerical', 'integerOnly'=>true),
+			array('user, description, controller, action, model, record, saved_at', 'required'),
 			array('user', 'length', 'max'=>20),
 			array('description', 'length', 'max'=>768),
 			array('controller, action, model, record', 'length', 'max'=>32),
@@ -103,4 +102,25 @@ class Historical extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+        public static function record($description, $model, $record) {
+	        try {
+	            $session = new CHttpSession;
+	            $session -> open();
+	
+	            $historial = new Historical;
+	            $historial -> user = $session['usr.login'];
+	            $historial -> description = $description;
+	            $historial -> controller = Yii::app()->controller->id;
+	            $historial -> action = Yii::app()->controller->action->id;
+	            $historial -> model = $model;
+	            $historial -> record = $record;
+	            $historial -> saved_at = new CDbExpression('NOW()');
+	            if(!$historial -> save()){
+	            	throw new Exception("Error al guardar en el historial.");
+	            }
+           }catch(Exception $e){
+                throw new CHttpException("de sistema ", $e -> getMessage());
+           }
+    }
 }

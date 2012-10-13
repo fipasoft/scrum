@@ -110,6 +110,15 @@ class PermisosController extends Controller
                 $task->addChild($controlador.'Delete');
                 
                 $administrador->addChild($controlador);
+                
+                //revisa
+                $controlador = 'revisa';
+                $task = $auth->createTask($controlador);
+                
+                $auth->createOperation($controlador.'Noexiste','Indice del controlador ' .$controlador.' .');
+            
+                $task->addChild($controlador.'Noexiste');
+                $administrador->addChild($controlador);
 					
 				//user
 				$controlador = 'user';

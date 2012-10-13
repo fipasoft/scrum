@@ -21,6 +21,8 @@
  */
 class Project extends CActiveRecord
 {
+	public $filters;
+	public $year;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Project the static model class
@@ -46,14 +48,14 @@ class Project extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, sproject_id, key, name, saved_at', 'required'),
-			array('id, sproject_id', 'numerical', 'integerOnly'=>true),
+			array('sproject_id, key, name, saved_at', 'required'),
+			array('sproject_id', 'numerical', 'integerOnly'=>true),
 			array('key', 'length', 'max'=>12),
 			array('name', 'length', 'max'=>45),
 			array('starts, ends, modified_in', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, sproject_id, key, name, starts, ends, saved_at, modified_in', 'safe', 'on'=>'search'),
+			array('id, sproject_id, key, name, starts, ends, saved_at, modified_in, year', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -99,15 +101,51 @@ class Project extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		$criteria->order = "starts DESC";
+		
+		$this->filters = false;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('sproject_id',$this->sproject_id);
-		$criteria->compare('key',$this->key,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('starts',$this->starts,true);
-		$criteria->compare('ends',$this->ends,true);
-		$criteria->compare('saved_at',$this->saved_at,true);
-		$criteria->compare('modified_in',$this->modified_in,true);
+	    $this->id = trim($this->id);
+        if($this->id!='') {
+            $criteria->compare('id',$this->id,true);
+            $this->filters = true;
+        }
+        
+        $this->sproject_id = trim($this->sproject_id);
+        if($this->sproject_id!='') {
+            $criteria->compare('sproject_id',$this->sproject_id);
+            $this->filters = true;
+        }
+        
+	    $this->key = trim($this->key);
+        if($this->key!='') {
+            $criteria->compare('`key`',$this->key,true);
+            $this->filters = true;
+        }
+		
+	    $this->name = trim($this->name);
+        if($this->name!='') {
+            $criteria->compare('name',$this->name,true);
+            $this->filters = true;
+        }
+        
+	    $this->starts = trim($this->starts);
+        if($this->starts!='') {
+            $criteria->compare('starts',Utils::convierteFechaMySql($this->starts),true);
+            $this->filters = true;
+        }		
+	    
+        $this->ends = trim($this->ends);
+        if($this->ends!='') {
+            $criteria->compare('ends',Utils::convierteFechaMySql($this->ends),true);
+            $this->filters = true;
+        }		
+        
+        $this->year = trim($this->year);
+        if($this->year!='') {
+            $criteria->compare('YEAR(starts)',$this->year,true);
+            $this->filters = true;
+        }   
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

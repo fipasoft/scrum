@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50133
 File Encoding         : 65001
 
-Date: 2012-10-12 19:34:25
+Date: 2012-10-13 01:04:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -19,7 +19,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `assigned`;
 CREATE TABLE `assigned` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `task_id` int(11) NOT NULL,
   `team_id` int(11) NOT NULL,
   `saved_at` datetime NOT NULL,
@@ -98,6 +98,8 @@ INSERT INTO AuthItem VALUES ('projectView', '0', 'Vista del controlador project 
 INSERT INTO AuthItem VALUES ('projectUpdate', '0', 'Actualizar del controlador project .', null, 'N;');
 INSERT INTO AuthItem VALUES ('projectCreate', '0', 'Crear del controlador project .', null, 'N;');
 INSERT INTO AuthItem VALUES ('projectDelete', '0', 'Eliminar del controlador project .', null, 'N;');
+INSERT INTO AuthItem VALUES ('revisa', '1', '', null, 'N;');
+INSERT INTO AuthItem VALUES ('revisaNoexiste', '0', 'Indice del controlador revisa .', null, 'N;');
 INSERT INTO AuthItem VALUES ('user', '1', '', null, 'N;');
 INSERT INTO AuthItem VALUES ('userIndex', '0', 'Indice del controlador user .', null, 'N;');
 INSERT INTO AuthItem VALUES ('userView', '0', 'Vista del controlador user .', null, 'N;');
@@ -126,6 +128,7 @@ CREATE TABLE `AuthItemChild` (
 INSERT INTO AuthItemChild VALUES ('administrador', 'historical');
 INSERT INTO AuthItemChild VALUES ('administrador', 'localizacion');
 INSERT INTO AuthItemChild VALUES ('administrador', 'project');
+INSERT INTO AuthItemChild VALUES ('administrador', 'revisa');
 INSERT INTO AuthItemChild VALUES ('administrador', 'siteSite');
 INSERT INTO AuthItemChild VALUES ('administrador', 'user');
 INSERT INTO AuthItemChild VALUES ('guest', 'site');
@@ -145,6 +148,7 @@ INSERT INTO AuthItemChild VALUES ('RbacAdmin', 'RbacAssignmentEditor');
 INSERT INTO AuthItemChild VALUES ('RbacAdmin', 'RbacEditor');
 INSERT INTO AuthItemChild VALUES ('RbacAssignmentEditor', 'RbacAssignmentViewer');
 INSERT INTO AuthItemChild VALUES ('RbacEditor', 'RbacViewer');
+INSERT INTO AuthItemChild VALUES ('revisa', 'revisaNoexiste');
 INSERT INTO AuthItemChild VALUES ('site', 'siteCiclo');
 INSERT INTO AuthItemChild VALUES ('site', 'siteError');
 INSERT INTO AuthItemChild VALUES ('site', 'siteIndex');
@@ -166,7 +170,7 @@ INSERT INTO AuthItemChild VALUES ('user', 'userView');
 -- ----------------------------
 DROP TABLE IF EXISTS `cstory`;
 CREATE TABLE `cstory` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `key` varchar(3) NOT NULL,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
@@ -181,7 +185,7 @@ CREATE TABLE `cstory` (
 -- ----------------------------
 DROP TABLE IF EXISTS `historical`;
 CREATE TABLE `historical` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user` varchar(20) NOT NULL,
   `description` varchar(768) NOT NULL,
   `controller` varchar(32) NOT NULL,
@@ -190,18 +194,31 @@ CREATE TABLE `historical` (
   `record` varchar(32) NOT NULL,
   `saved_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of historical
 -- ----------------------------
+INSERT INTO historical VALUES ('1', 'root', 'Se agregó el proyecto xxx - ddx.', 'project', 'create', 'Project', '3', '2012-10-12 23:56:14');
+INSERT INTO historical VALUES ('2', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:19:17');
+INSERT INTO historical VALUES ('3', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:20:43');
+INSERT INTO historical VALUES ('4', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:41:25');
+INSERT INTO historical VALUES ('5', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:46:30');
+INSERT INTO historical VALUES ('6', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:48:15');
+INSERT INTO historical VALUES ('7', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:50:39');
+INSERT INTO historical VALUES ('8', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:50:51');
+INSERT INTO historical VALUES ('9', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:51:58');
+INSERT INTO historical VALUES ('10', 'root', 'Se agregó el proyecto xxx1 - d.', 'project', 'create', 'Project', '4', '2012-10-13 01:00:06');
+INSERT INTO historical VALUES ('11', 'root', 'Se eliminó el proyecto xxx - ddx.', 'project', 'delete', 'Project', '3', '2012-10-13 01:01:42');
+INSERT INTO historical VALUES ('12', 'root', 'Se agregó el proyecto xxx - ddx.', 'project', 'create', 'Project', '5', '2012-10-13 01:02:06');
+INSERT INTO historical VALUES ('13', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '5', '2012-10-13 01:03:32');
 
 -- ----------------------------
 -- Table structure for `pbacklog`
 -- ----------------------------
 DROP TABLE IF EXISTS `pbacklog`;
 CREATE TABLE `pbacklog` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) NOT NULL,
   `story_id` int(11) NOT NULL,
   `saved_at` datetime NOT NULL,
@@ -221,7 +238,7 @@ CREATE TABLE `pbacklog` (
 -- ----------------------------
 DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sproject_id` int(11) NOT NULL,
   `key` varchar(12) NOT NULL,
   `name` varchar(45) NOT NULL,
@@ -232,18 +249,19 @@ CREATE TABLE `project` (
   PRIMARY KEY (`id`),
   KEY `fk_project_sproject1` (`sproject_id`),
   CONSTRAINT `fk_project_sproject1` FOREIGN KEY (`sproject_id`) REFERENCES `sproject` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of project
 -- ----------------------------
+INSERT INTO project VALUES ('5', '1', 'xxx', 'ddx', '2012-10-12', '2014-10-13', '2012-10-13 01:02:06', '2012-10-13 01:03:32');
 
 -- ----------------------------
 -- Table structure for `role`
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `key` varchar(3) NOT NULL,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
@@ -258,7 +276,7 @@ CREATE TABLE `role` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sbacklog`;
 CREATE TABLE `sbacklog` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sprint_id` int(11) NOT NULL,
   `story_id` int(11) NOT NULL,
   `saved_at` datetime NOT NULL,
@@ -278,7 +296,7 @@ CREATE TABLE `sbacklog` (
 -- ----------------------------
 DROP TABLE IF EXISTS `size`;
 CREATE TABLE `size` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `key` varchar(3) NOT NULL,
   `name` varchar(3) NOT NULL,
   PRIMARY KEY (`id`)
@@ -293,7 +311,7 @@ CREATE TABLE `size` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sprint`;
 CREATE TABLE `sprint` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `ssprint_id` int(11) NOT NULL,
   `project_id` int(11) NOT NULL,
   `number` int(11) NOT NULL,
@@ -319,15 +337,20 @@ CREATE TABLE `sprint` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sproject`;
 CREATE TABLE `sproject` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `key` varchar(3) NOT NULL,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sproject
 -- ----------------------------
+INSERT INTO sproject VALUES ('1', 'INI', 'Inicial');
+INSERT INTO sproject VALUES ('2', 'APR', 'Aprobado');
+INSERT INTO sproject VALUES ('3', 'PRO', 'En proceso');
+INSERT INTO sproject VALUES ('4', 'FIN', 'Finalizado');
+INSERT INTO sproject VALUES ('5', 'CAN', 'Cancelado');
 
 -- ----------------------------
 -- Table structure for `ssprint`
@@ -349,7 +372,7 @@ CREATE TABLE `ssprint` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sstory`;
 CREATE TABLE `sstory` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `key` varchar(3) NOT NULL,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
@@ -364,7 +387,7 @@ CREATE TABLE `sstory` (
 -- ----------------------------
 DROP TABLE IF EXISTS `stask`;
 CREATE TABLE `stask` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `key` varchar(3) NOT NULL,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
@@ -379,7 +402,7 @@ CREATE TABLE `stask` (
 -- ----------------------------
 DROP TABLE IF EXISTS `story`;
 CREATE TABLE `story` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `size_id` int(11) NOT NULL,
   `sstory_id` int(11) NOT NULL,
   `cstory_id` int(11) NOT NULL,
@@ -393,8 +416,8 @@ CREATE TABLE `story` (
   KEY `fk_story_sstory1` (`sstory_id`),
   KEY `fk_story_cstory1` (`cstory_id`),
   CONSTRAINT `fk_history_size1` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_story_sstory1` FOREIGN KEY (`sstory_id`) REFERENCES `sstory` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_story_cstory1` FOREIGN KEY (`cstory_id`) REFERENCES `cstory` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `fk_story_cstory1` FOREIGN KEY (`cstory_id`) REFERENCES `cstory` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `fk_story_sstory1` FOREIGN KEY (`sstory_id`) REFERENCES `sstory` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -406,7 +429,7 @@ CREATE TABLE `story` (
 -- ----------------------------
 DROP TABLE IF EXISTS `task`;
 CREATE TABLE `task` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `stask_id` int(11) NOT NULL,
   `story_id` int(11) NOT NULL,
   `ttask_id` int(11) NOT NULL,
@@ -435,7 +458,7 @@ CREATE TABLE `task` (
 -- ----------------------------
 DROP TABLE IF EXISTS `tbacklog`;
 CREATE TABLE `tbacklog` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sbacklog_id` int(11) NOT NULL,
   `task_id` int(11) NOT NULL,
   `saved_at` datetime NOT NULL,
@@ -455,7 +478,7 @@ CREATE TABLE `tbacklog` (
 -- ----------------------------
 DROP TABLE IF EXISTS `team`;
 CREATE TABLE `team` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
@@ -464,9 +487,9 @@ CREATE TABLE `team` (
   KEY `fk_team_project` (`project_id`),
   KEY `fk_team_role1` (`role_id`),
   KEY `fk_team_users1` (`users_id`),
-  CONSTRAINT `fk_team_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_team_project` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_team_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `fk_team_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `fk_team_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -478,7 +501,7 @@ CREATE TABLE `team` (
 -- ----------------------------
 DROP TABLE IF EXISTS `ttask`;
 CREATE TABLE `ttask` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `key` varchar(3) NOT NULL,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
@@ -493,7 +516,7 @@ CREATE TABLE `ttask` (
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(20) NOT NULL,
   `password` varchar(40) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
@@ -503,7 +526,7 @@ CREATE TABLE `users` (
   `saved_at` datetime NOT NULL,
   `modified_in` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users

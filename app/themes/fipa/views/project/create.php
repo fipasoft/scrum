@@ -4,12 +4,14 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List Project', 'url'=>array('index')),
-	array('label'=>'Manage Project', 'url'=>array('admin')),
-);
+
 ?>
+<h1>Crear proyecto</h1>
 
-<h1>Create Project</h1>
-
+<div class="menucrud">
+<?php
+    echo CHtml::link('Volver <img src="'.Yii::app()->theme->baseUrl.'/img/system/volver.png"/>', 
+                        array('index'));
+ ?>
+</div>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -141,6 +141,30 @@ class ProjectController extends Controller
             throw new CHttpException("de sistema ", $e -> getMessage());
         }
 	}
+	
+   /**
+     * Muestra el Product Backlog del proyecto
+     */
+    public function actionProductbacklog($id)
+    {
+        try{
+            $model=$this->loadModel($id);
+    
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
+    
+            if(isset($_POST['Project']))
+            {
+
+            }
+    
+            $this->render('productbacklog',array(
+                'model'=>$model,
+            ));
+        }catch(Exception $e){
+            throw new CHttpException("de sistema ", $e -> getMessage());
+        }
+    }
 
 	/**
 	 * Lists all models.

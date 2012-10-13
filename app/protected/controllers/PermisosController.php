@@ -66,6 +66,24 @@ class PermisosController extends Controller
 				$administrador->addChild($controlador."Site");		
 
 			//operaciones APP
+			
+				//cstory
+                $controlador = 'cstory';
+                $task = $auth->createTask($controlador);
+                
+                $auth->createOperation($controlador.'Index','Indice del controlador ' .$controlador.' .');
+                $auth->createOperation($controlador.'View','Vista del controlador ' .$controlador.' .');
+                $auth->createOperation($controlador.'Update','Actualizar del controlador ' .$controlador.' .');
+                $auth->createOperation($controlador.'Create','Crear del controlador ' .$controlador.' .');
+                $auth->createOperation($controlador.'Delete','Eliminar del controlador ' .$controlador.' .');
+            
+                $task->addChild($controlador.'Index');
+                $task->addChild($controlador.'View');
+                $task->addChild($controlador.'Update');
+                $task->addChild($controlador.'Create');
+                $task->addChild($controlador.'Delete');
+                
+                $administrador->addChild($controlador);
 		
 				//historical
 				$controlador = 'historical';
@@ -103,6 +121,7 @@ class PermisosController extends Controller
                 $auth->createOperation($controlador.'Create','Crear del controlador ' .$controlador.' .');
                 $auth->createOperation($controlador.'Delete','Eliminar del controlador ' .$controlador.' .');
                 $auth->createOperation($controlador.'Team','Team del controlador ' .$controlador.' .');
+                $auth->createOperation($controlador.'Productbacklog','Product Backlog del controlador ' .$controlador.' .');
             
                 $task->addChild($controlador.'Index');
                 $task->addChild($controlador.'View');
@@ -110,6 +129,7 @@ class PermisosController extends Controller
                 $task->addChild($controlador.'Create');
                 $task->addChild($controlador.'Delete');
                 $task->addChild($controlador.'Team');
+                $task->addChild($controlador.'Productbacklog');
                 
                 $administrador->addChild($controlador);
                 

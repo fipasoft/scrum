@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50133
 File Encoding         : 65001
 
-Date: 2012-10-13 13:42:03
+Date: 2012-10-13 14:17:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -51,6 +51,12 @@ CREATE TABLE `AuthAssignment` (
 -- ----------------------------
 INSERT INTO AuthAssignment VALUES ('SuperAdmin', '1', '', '');
 INSERT INTO AuthAssignment VALUES ('guest', '2', null, 'N;');
+INSERT INTO AuthAssignment VALUES ('admin', '3', null, 'N;');
+INSERT INTO AuthAssignment VALUES ('admin', '4', null, 'N;');
+INSERT INTO AuthAssignment VALUES ('admin', '5', null, 'N;');
+INSERT INTO AuthAssignment VALUES ('admin', '6', null, 'N;');
+INSERT INTO AuthAssignment VALUES ('admin', '7', null, 'N;');
+INSERT INTO AuthAssignment VALUES ('admin', '8', null, 'N;');
 
 -- ----------------------------
 -- Table structure for `AuthItem`
@@ -99,6 +105,7 @@ INSERT INTO AuthItem VALUES ('projectUpdate', '0', 'Actualizar del controlador p
 INSERT INTO AuthItem VALUES ('projectCreate', '0', 'Crear del controlador project .', null, 'N;');
 INSERT INTO AuthItem VALUES ('projectDelete', '0', 'Eliminar del controlador project .', null, 'N;');
 INSERT INTO AuthItem VALUES ('projectTeam', '0', 'Team del controlador project .', null, 'N;');
+INSERT INTO AuthItem VALUES ('projectProductbacklog', '0', 'Product Backlog del controlador project .', null, 'N;');
 INSERT INTO AuthItem VALUES ('revisa', '1', '', null, 'N;');
 INSERT INTO AuthItem VALUES ('revisaNoexiste', '0', 'Indice del controlador revisa .', null, 'N;');
 INSERT INTO AuthItem VALUES ('user', '1', '', null, 'N;');
@@ -143,6 +150,7 @@ INSERT INTO AuthItemChild VALUES ('permisos', 'permisosCrear');
 INSERT INTO AuthItemChild VALUES ('project', 'projectCreate');
 INSERT INTO AuthItemChild VALUES ('project', 'projectDelete');
 INSERT INTO AuthItemChild VALUES ('project', 'projectIndex');
+INSERT INTO AuthItemChild VALUES ('project', 'projectProductbacklog');
 INSERT INTO AuthItemChild VALUES ('project', 'projectTeam');
 INSERT INTO AuthItemChild VALUES ('project', 'projectUpdate');
 INSERT INTO AuthItemChild VALUES ('project', 'projectView');
@@ -155,7 +163,6 @@ INSERT INTO AuthItemChild VALUES ('site', 'siteCiclo');
 INSERT INTO AuthItemChild VALUES ('site', 'siteError');
 INSERT INTO AuthItemChild VALUES ('site', 'siteIndex');
 INSERT INTO AuthItemChild VALUES ('site', 'siteLogin');
-
 INSERT INTO AuthItemChild VALUES ('site', 'siteLogout');
 INSERT INTO AuthItemChild VALUES ('siteSite', 'siteUsuario');
 INSERT INTO AuthItemChild VALUES ('SuperAdmin', 'administrador');
@@ -197,7 +204,39 @@ CREATE TABLE `historical` (
   `record` varchar(32) NOT NULL,
   `saved_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of historical
+-- ----------------------------
+INSERT INTO historical VALUES ('1', 'root', 'Se agregó el proyecto xxx - ddx.', 'project', 'create', 'Project', '3', '2012-10-12 23:56:14');
+INSERT INTO historical VALUES ('2', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:19:17');
+INSERT INTO historical VALUES ('3', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:20:43');
+INSERT INTO historical VALUES ('4', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:41:25');
+INSERT INTO historical VALUES ('5', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:46:30');
+INSERT INTO historical VALUES ('6', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:48:15');
+INSERT INTO historical VALUES ('7', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:50:39');
+INSERT INTO historical VALUES ('8', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:50:51');
+INSERT INTO historical VALUES ('9', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:51:58');
+INSERT INTO historical VALUES ('10', 'root', 'Se agregó el proyecto xxx1 - d.', 'project', 'create', 'Project', '4', '2012-10-13 01:00:06');
+INSERT INTO historical VALUES ('11', 'root', 'Se eliminó el proyecto xxx - ddx.', 'project', 'delete', 'Project', '3', '2012-10-13 01:01:42');
+INSERT INTO historical VALUES ('12', 'root', 'Se agregó el proyecto xxx - ddx.', 'project', 'create', 'Project', '5', '2012-10-13 01:02:06');
+INSERT INTO historical VALUES ('13', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '5', '2012-10-13 01:03:32');
+INSERT INTO historical VALUES ('14', 'root', 'Se agregó al equipo del proyecto xxx - ddx al usuario clopez como Product Owner.', 'project', 'team', 'Team', '1', '2012-10-13 13:08:23');
+INSERT INTO historical VALUES ('15', 'root', 'Se agregó al equipo del proyecto xxx - ddx al usuario gabita como Scrum Master.', 'project', 'team', 'Team', '2', '2012-10-13 13:08:23');
+INSERT INTO historical VALUES ('16', 'root', 'Se agregó al equipo del proyecto xxx - ddx al usuario jlopez como Team.', 'project', 'team', 'Team', '3', '2012-10-13 13:08:23');
+INSERT INTO historical VALUES ('17', 'root', 'Se agregó al equipo del proyecto xxx - ddx al usuario lcardona como Team.', 'project', 'team', 'Team', '4', '2012-10-13 13:22:49');
+INSERT INTO historical VALUES ('18', 'root', 'Se agregó al equipo del proyecto xxx - ddx al usuario mimex como Team.', 'project', 'team', 'Team', '5', '2012-10-13 13:22:49');
+INSERT INTO historical VALUES ('19', 'root', 'Se eliminó del equipo del proyecto xxx - ddx al usuario lcardona como Team.', 'project', 'team', 'Team', '4', '2012-10-13 13:38:27');
+INSERT INTO historical VALUES ('20', 'root', 'Se eliminó del equipo del proyecto xxx - ddx al usuario mimex como Team.', 'project', 'team', 'Team', '5', '2012-10-13 13:38:27');
+INSERT INTO historical VALUES ('21', 'root', 'Se agregó al equipo del proyecto xxx - ddx al usuario gabita como Team.', 'project', 'team', 'Team', '6', '2012-10-13 13:39:17');
+INSERT INTO historical VALUES ('22', 'root', 'Se agregó al equipo del proyecto xxx - ddx al usuario jlopez como Scrum Master.', 'project', 'team', 'Team', '7', '2012-10-13 13:39:17');
+INSERT INTO historical VALUES ('23', 'root', 'Se agregó al equipo del proyecto xxx - ddx al usuario mimex como Team.', 'project', 'team', 'Team', '8', '2012-10-13 13:39:17');
+INSERT INTO historical VALUES ('24', 'root', 'Se eliminó del equipo del proyecto xxx - ddx al usuario gabita como Scrum Master.', 'project', 'team', 'Team', '2', '2012-10-13 13:39:17');
+INSERT INTO historical VALUES ('25', 'root', 'Se eliminó del equipo del proyecto xxx - ddx al usuario jlopez como Team.', 'project', 'team', 'Team', '3', '2012-10-13 13:39:17');
+INSERT INTO historical VALUES ('26', 'root', 'Se eliminó el proyecto xxx - ddx.', 'project', 'delete', 'Project', '5', '2012-10-13 13:41:10');
+INSERT INTO historical VALUES ('27', 'root', 'Se agregó el proyecto Scrum - Scrum.', 'project', 'create', 'Project', '6', '2012-10-13 13:59:59');
+INSERT INTO historical VALUES ('28', 'root', 'Se agregó al equipo del proyecto Scrum - Scrum al usuario jlopez como Team.', 'project', 'team', 'Team', '9', '2012-10-13 14:00:09');
 
 -- ----------------------------
 -- Table structure for `pbacklog`
@@ -235,11 +274,12 @@ CREATE TABLE `project` (
   PRIMARY KEY (`id`),
   KEY `fk_project_sproject1` (`sproject_id`),
   CONSTRAINT `fk_project_sproject1` FOREIGN KEY (`sproject_id`) REFERENCES `sproject` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of project
 -- ----------------------------
+INSERT INTO project VALUES ('6', '1', 'Scrum', 'Scrum', '2012-10-13', '2013-10-13', '2012-10-13 13:59:59', null);
 
 -- ----------------------------
 -- Table structure for `role`
@@ -286,13 +326,18 @@ DROP TABLE IF EXISTS `size`;
 CREATE TABLE `size` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `key` varchar(3) NOT NULL,
-  `name` varchar(3) NOT NULL,
+  `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of size
 -- ----------------------------
+INSERT INTO size VALUES ('1', 'XS', 'Muy pequeña');
+INSERT INTO size VALUES ('2', 'S', 'Pequeña');
+INSERT INTO size VALUES ('3', 'M', 'Mediana');
+INSERT INTO size VALUES ('4', 'L', 'Grande');
+INSERT INTO size VALUES ('5', 'XL', 'Muy grande');
 
 -- ----------------------------
 -- Table structure for `sprint`
@@ -312,8 +357,8 @@ CREATE TABLE `sprint` (
   PRIMARY KEY (`id`),
   KEY `fk_sprint_ssprint1` (`ssprint_id`),
   KEY `fk_sprint_project1` (`project_id`),
-  CONSTRAINT `fk_sprint_project1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_sprint_ssprint1` FOREIGN KEY (`ssprint_id`) REFERENCES `ssprint` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_sprint_ssprint1` FOREIGN KEY (`ssprint_id`) REFERENCES `ssprint` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_sprint_project1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -364,11 +409,13 @@ CREATE TABLE `sstory` (
   `key` varchar(3) NOT NULL,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sstory
 -- ----------------------------
+INSERT INTO sstory VALUES ('1', 'O', 'Abierta');
+INSERT INTO sstory VALUES ('2', 'C', 'Cerrada');
 
 -- ----------------------------
 -- Table structure for `stask`
@@ -403,9 +450,9 @@ CREATE TABLE `story` (
   KEY `fk_history_size1` (`size_id`),
   KEY `fk_story_sstory1` (`sstory_id`),
   KEY `fk_story_cstory1` (`cstory_id`),
+  CONSTRAINT `fk_story_sstory1` FOREIGN KEY (`sstory_id`) REFERENCES `sstory` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_history_size1` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_story_cstory1` FOREIGN KEY (`cstory_id`) REFERENCES `cstory` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_story_sstory1` FOREIGN KEY (`sstory_id`) REFERENCES `sstory` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `fk_story_cstory1` FOREIGN KEY (`cstory_id`) REFERENCES `cstory` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -478,11 +525,12 @@ CREATE TABLE `team` (
   CONSTRAINT `fk_team_project` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_team_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_team_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of team
 -- ----------------------------
+INSERT INTO team VALUES ('9', '6', '3', '4', '2012-10-13 14:00:09');
 
 -- ----------------------------
 -- Table structure for `ttask`
@@ -514,7 +562,7 @@ CREATE TABLE `users` (
   `saved_at` datetime NOT NULL,
   `modified_in` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
@@ -522,3 +570,8 @@ CREATE TABLE `users` (
 INSERT INTO users VALUES ('1', 'root', 'd033e22ae348aeb5660fc2140aec35850c4da997', '_', '_', '_', 'root', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 INSERT INTO users VALUES ('2', 'Guest', 'd033e22ae348aeb5660fc2140aec35850c4da997', '', '', '', 'guest', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 INSERT INTO users VALUES ('3', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '-', '-', '-', 'admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO users VALUES ('4', 'jlopez', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Jonathan', 'López', 'jlopez@fipasoft.mx', 'admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO users VALUES ('5', 'mimex', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Miguel', 'Trujillo', 'mimex@fipasoft.mx', 'admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO users VALUES ('6', 'gabita', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Garbiela', 'León', 'gabita@fipasoft.mx', 'admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO users VALUES ('7', 'clopez', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Christian', 'López', 'clopez@fipasoft.mx', 'admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO users VALUES ('8', 'lcardona', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Luis', 'Cardona', 'lcardona@fipasoft.mx', 'admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00');

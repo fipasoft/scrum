@@ -21,10 +21,6 @@ $this->breadcrumbs=array(
  <?php
     echo CHtml::link('Editar <img src="'.Yii::app()->theme->baseUrl.'/img/system/editar.png"/>', 
                         array('project/update/'.$model->id));
- ?> / 
- <?php
-    echo CHtml::link('Equipo <img src="'.Yii::app()->theme->baseUrl.'/img/system/habilidades.png"/>', 
-                        array('project/team/'.$model->id));
  ?>
 </div>
 <br/>
@@ -58,6 +54,12 @@ $this->breadcrumbs=array(
 <?php if(count($model->teams) > 0){ ?>
 <br/>
 <h3>Equipo</h3>
+<div class="menucrud">
+ <?php
+    echo CHtml::link('Equipo <img src="'.Yii::app()->theme->baseUrl.'/img/system/habilidades.png"/>', 
+                        array('project/team/'.$model->id));
+ ?>
+</div>
 <div class="grid-view">
     <table class="items">
         <tr>

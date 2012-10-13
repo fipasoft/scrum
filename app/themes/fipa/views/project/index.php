@@ -67,7 +67,7 @@ $this->breadcrumbs=array(
             
     $cols[] = array(// display a column with "view", "update" and "delete" buttons
             'class'=>'CButtonColumn',
-            'template'=>'{view} {team} {update} {delete}',
+            'template'=>'{view} {team} {productbacklog} {update} {delete}',
             'viewButtonImageUrl' => Yii::app()->theme->baseUrl.'/img/system/ver.png',
             'updateButtonImageUrl' => Yii::app()->theme->baseUrl.'/img/system/editar.png',
             'deleteButtonImageUrl' => Yii::app()->theme->baseUrl.'/img/system/eliminar.png',
@@ -78,6 +78,12 @@ $this->breadcrumbs=array(
                         'label'=>'Equipo',
                         'imageUrl'=>Yii::app()->theme->baseUrl.'/img/system/habilidades.png',
                         'url'=>'Yii::app()->createUrl("project/team", array("id"=>$data->id))',
+                    ),
+                    'productbacklog' => array
+                    (
+                        'label'=>'Product Backlog',
+                        'imageUrl'=>Yii::app()->theme->baseUrl.'/img/system/marcador.png',
+                        'url'=>'Yii::app()->createUrl("project/productbacklog", array("id"=>$data->id))',
                     )
                 ),
             );

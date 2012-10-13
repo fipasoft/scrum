@@ -96,7 +96,14 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 				<?php 
 					$this->widget('zii.widgets.CMenu',array(
 						'items'=>array(
-                            array('label'=>'Proyectos', 'url'=>array('#'),
+                            array('label'=>'Proyectos', 'url'=>array('project/index'),
+                                )
+                            ,
+                            array('label'=>'Catalogos', 'url'=>array('#'),'items'=>array(
+                                array('label'=>'Historias', 'url'=>array('#'), 'items' => array(
+                                    array('label'=>'Categorías', 'url'=>array('cstory/index'))
+                                )),
+                                )
                                 )
                             ,
                             array('label'=>'Sistema', 'url'=>array('#'), 'items'=>array(

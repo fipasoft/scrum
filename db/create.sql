@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50133
 File Encoding         : 65001
 
-Date: 2012-10-13 01:04:50
+Date: 2012-10-13 13:42:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -98,6 +98,7 @@ INSERT INTO AuthItem VALUES ('projectView', '0', 'Vista del controlador project 
 INSERT INTO AuthItem VALUES ('projectUpdate', '0', 'Actualizar del controlador project .', null, 'N;');
 INSERT INTO AuthItem VALUES ('projectCreate', '0', 'Crear del controlador project .', null, 'N;');
 INSERT INTO AuthItem VALUES ('projectDelete', '0', 'Eliminar del controlador project .', null, 'N;');
+INSERT INTO AuthItem VALUES ('projectTeam', '0', 'Team del controlador project .', null, 'N;');
 INSERT INTO AuthItem VALUES ('revisa', '1', '', null, 'N;');
 INSERT INTO AuthItem VALUES ('revisaNoexiste', '0', 'Indice del controlador revisa .', null, 'N;');
 INSERT INTO AuthItem VALUES ('user', '1', '', null, 'N;');
@@ -142,6 +143,7 @@ INSERT INTO AuthItemChild VALUES ('permisos', 'permisosCrear');
 INSERT INTO AuthItemChild VALUES ('project', 'projectCreate');
 INSERT INTO AuthItemChild VALUES ('project', 'projectDelete');
 INSERT INTO AuthItemChild VALUES ('project', 'projectIndex');
+INSERT INTO AuthItemChild VALUES ('project', 'projectTeam');
 INSERT INTO AuthItemChild VALUES ('project', 'projectUpdate');
 INSERT INTO AuthItemChild VALUES ('project', 'projectView');
 INSERT INTO AuthItemChild VALUES ('RbacAdmin', 'RbacAssignmentEditor');
@@ -153,6 +155,7 @@ INSERT INTO AuthItemChild VALUES ('site', 'siteCiclo');
 INSERT INTO AuthItemChild VALUES ('site', 'siteError');
 INSERT INTO AuthItemChild VALUES ('site', 'siteIndex');
 INSERT INTO AuthItemChild VALUES ('site', 'siteLogin');
+
 INSERT INTO AuthItemChild VALUES ('site', 'siteLogout');
 INSERT INTO AuthItemChild VALUES ('siteSite', 'siteUsuario');
 INSERT INTO AuthItemChild VALUES ('SuperAdmin', 'administrador');
@@ -194,24 +197,7 @@ CREATE TABLE `historical` (
   `record` varchar(32) NOT NULL,
   `saved_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of historical
--- ----------------------------
-INSERT INTO historical VALUES ('1', 'root', 'Se agregó el proyecto xxx - ddx.', 'project', 'create', 'Project', '3', '2012-10-12 23:56:14');
-INSERT INTO historical VALUES ('2', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:19:17');
-INSERT INTO historical VALUES ('3', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:20:43');
-INSERT INTO historical VALUES ('4', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:41:25');
-INSERT INTO historical VALUES ('5', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:46:30');
-INSERT INTO historical VALUES ('6', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:48:15');
-INSERT INTO historical VALUES ('7', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:50:39');
-INSERT INTO historical VALUES ('8', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:50:51');
-INSERT INTO historical VALUES ('9', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '3', '2012-10-13 00:51:58');
-INSERT INTO historical VALUES ('10', 'root', 'Se agregó el proyecto xxx1 - d.', 'project', 'create', 'Project', '4', '2012-10-13 01:00:06');
-INSERT INTO historical VALUES ('11', 'root', 'Se eliminó el proyecto xxx - ddx.', 'project', 'delete', 'Project', '3', '2012-10-13 01:01:42');
-INSERT INTO historical VALUES ('12', 'root', 'Se agregó el proyecto xxx - ddx.', 'project', 'create', 'Project', '5', '2012-10-13 01:02:06');
-INSERT INTO historical VALUES ('13', 'root', 'Se editó el proyecto xxx - ddx.', 'project', 'update', 'Project', '5', '2012-10-13 01:03:32');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for `pbacklog`
@@ -254,7 +240,6 @@ CREATE TABLE `project` (
 -- ----------------------------
 -- Records of project
 -- ----------------------------
-INSERT INTO project VALUES ('5', '1', 'xxx', 'ddx', '2012-10-12', '2014-10-13', '2012-10-13 01:02:06', '2012-10-13 01:03:32');
 
 -- ----------------------------
 -- Table structure for `role`
@@ -265,11 +250,14 @@ CREATE TABLE `role` (
   `key` varchar(3) NOT NULL,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
+INSERT INTO role VALUES ('1', 'PO', 'Product Owner');
+INSERT INTO role VALUES ('2', 'SM', 'Scrum Master');
+INSERT INTO role VALUES ('3', 'TEM', 'Team');
 
 -- ----------------------------
 -- Table structure for `sbacklog`
@@ -324,8 +312,8 @@ CREATE TABLE `sprint` (
   PRIMARY KEY (`id`),
   KEY `fk_sprint_ssprint1` (`ssprint_id`),
   KEY `fk_sprint_project1` (`project_id`),
-  CONSTRAINT `fk_sprint_ssprint1` FOREIGN KEY (`ssprint_id`) REFERENCES `ssprint` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_sprint_project1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_sprint_project1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_sprint_ssprint1` FOREIGN KEY (`ssprint_id`) REFERENCES `ssprint` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -490,7 +478,7 @@ CREATE TABLE `team` (
   CONSTRAINT `fk_team_project` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_team_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_team_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of team
@@ -526,10 +514,11 @@ CREATE TABLE `users` (
   `saved_at` datetime NOT NULL,
   `modified_in` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
 INSERT INTO users VALUES ('1', 'root', 'd033e22ae348aeb5660fc2140aec35850c4da997', '_', '_', '_', 'root', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 INSERT INTO users VALUES ('2', 'Guest', 'd033e22ae348aeb5660fc2140aec35850c4da997', '', '', '', 'guest', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO users VALUES ('3', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '-', '-', '-', 'admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00');

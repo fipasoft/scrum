@@ -159,6 +159,66 @@ class ProjectController extends Controller
 		
         $this -> render('index', array('model' => $model, 'dataProvider' => $model -> search(), ));
 	}
+	
+   /**
+     * Define el equipo del proyecto y sus roles.
+     */
+    public function actionTeam($id)
+    {
+        try{
+            $model=$this->loadModel($id);
+    
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
+    
+            if(isset($_POST['user']) && isset($_POST['role']))
+            {
+            	$transaccion = Yii::app() -> db -> beginTransaction();
+            	$tb = Team::model()->findAll("project_id = '".$model->id."'");
+            	$ta = array();
+            	foreach ($_POST['user'] as $k => $uid){
+            	   $rid = $_POST['role'][$k];
+            	   if(!Team::model()->exists("project_id = '".$model->id."' AND ".
+            	                    "users_id = '".$uid."' AND role_id = '".$rid."'")){
+	            	   $team = new Team();
+	            	   $team->project_id = $model->id;	
+	            	   $team->users_id = $uid;
+	            	   $team->role_id = $rid;
+	            	   $team->saved_at = new CDbExpression('NOW()');
+	            	   
+	            	   if(!$team->save()){
+	            	   	   $transaccion->rollback();
+	            	   	   throw new Exception("Error al guardar el team");
+	            	   }
+	            	   
+	                   Historical::record("Se agregó al equipo del proyecto ".$model->key." - ".$model->name." al usuario ".$team->users->login." como ".$team->role->name.".", "Team", $team->id);
+            	   }
+            	   
+            	   $ta[] = $uid.$rid;
+            	}
+            	foreach($tb as $member){
+            		if(!in_array($member->users_id.$member->role_id, $ta)){
+            			if(!$member->delete()){
+                           $transaccion->rollback();
+                           throw new Exception("Error al eliminar el team");
+            				
+            			}
+                       Historical::record("Se eliminó del equipo del proyecto ".$model->key." - ".$model->name." al usuario ".$member->users->login." como ".$member->role->name.".", "Team", $member->id);
+            		}
+            	}
+            	
+                $transaccion->commit();
+                $this->redirect(array('view','id'=>$model->id));
+            }
+    
+            $this->render('team',array(
+                'model'=>$model,
+            ));
+            
+        }catch(Exception $e){
+            throw new CHttpException("de sistema ", $e -> getMessage());
+        }
+    }
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

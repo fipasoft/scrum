@@ -21,6 +21,10 @@ $this->breadcrumbs=array(
  <?php
     echo CHtml::link('Editar <img src="'.Yii::app()->theme->baseUrl.'/img/system/editar.png"/>', 
                         array('project/update/'.$model->id));
+ ?> / 
+ <?php
+    echo CHtml::link('Equipo <img src="'.Yii::app()->theme->baseUrl.'/img/system/habilidades.png"/>', 
+                        array('project/team/'.$model->id));
  ?>
 </div>
 <br/>
@@ -51,3 +55,23 @@ $this->breadcrumbs=array(
         )
 	),
 )); ?>
+<?php if(count($model->teams) > 0){ ?>
+<br/>
+<h3>Equipo</h3>
+<div class="grid-view">
+    <table class="items">
+        <tr>
+	        <th class="centrar">Persona</th>
+	        <th class="centrar">Rol</th>
+        </tr>
+        <?php $i = 0; ?>
+        <?php foreach($model->teams as $member){ ?>
+            <tr class="<?php echo($i%2 == 0 ? "odd" : "even") ?>">
+                <td class="centrar"><?php echo $member->users->login; ?></td>
+                <td class="centrar"><?php echo $member->role->name; ?></td>
+            </tr>
+            <?php $i++; ?>
+        <?php } ?>
+    </table>
+</div>
+<?php } ?>

@@ -102,12 +102,14 @@ class PermisosController extends Controller
                 $auth->createOperation($controlador.'Update','Actualizar del controlador ' .$controlador.' .');
                 $auth->createOperation($controlador.'Create','Crear del controlador ' .$controlador.' .');
                 $auth->createOperation($controlador.'Delete','Eliminar del controlador ' .$controlador.' .');
+                $auth->createOperation($controlador.'Team','Team del controlador ' .$controlador.' .');
             
                 $task->addChild($controlador.'Index');
                 $task->addChild($controlador.'View');
                 $task->addChild($controlador.'Update');
                 $task->addChild($controlador.'Create');
                 $task->addChild($controlador.'Delete');
+                $task->addChild($controlador.'Team');
                 
                 $administrador->addChild($controlador);
                 

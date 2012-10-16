@@ -45,7 +45,7 @@
 				$('#btnQuitar').attr("href", "javascript:;");
 				$('#btnQuitar').click(function() {
 					$("#formBusqueda input[type=text], #formBusqueda textarea, #formBusqueda select").val('');
-					$("#formBusqueda").submit()
+					$("#formBusqueda").submit();
 				});
 			}
 
@@ -93,6 +93,29 @@
 		
 		fvalidator : function() {
 			$(".fvalidator").fvalidator();
+		},
+		
+		numeros : function(){
+			$('input.real').blur(function(){
+
+				   if(isNaN($(this).val()) || $(this).val().indexOf(".")<0){
+					   $(this).effect("shake", { times:2 }, 150);
+	                   $(this).val("");
+				   } else {
+				      if(!parseFloat($(this).val())) {
+				    	  	 $(this).effect("shake", { times:2 }, 150);
+		                     $(this).val("");
+				          }
+				   }
+			});
+			
+			$('input.entero').blur(function(){
+				 if(!($(this).val() % 1 == 0)){
+                     $(this).effect("shake", { times:2 }, 150);
+                     $(this).val("");
+				 }
+					
+			});
 		}
 	};
 
@@ -121,6 +144,8 @@ $(document).ready(function() {
     $(document.body).system('fvalidator');
     $(document.body).system('colorbox');
     $(document.body).system('tabs');
+    $(document.body).system('numeros');
+    
     
     jQuery.extend({
        postJSON: function( url, data, callback) {

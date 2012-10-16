@@ -2,13 +2,13 @@ String.prototype.endsWith = function(str)
 {return (this.match(str+"$")==str);}
 
 String.prototype.startsWith = function(str) 
-{return (this.match("^"+str)==str)}
+{return (this.match("^"+str)==str);}
 
 String.prototype.trim = function(){return 
-(this.replace(/^[\s\xA0]+/, "").replace(/[\s\xA0]+$/, ""))}
+(this.replace(/^[\s\xA0]+/, "").replace(/[\s\xA0]+$/, ""));}
 
 jQuery.fn.exists = function() {
-	return jQuery(this).length > 0;
+	return (jQuery(this).length > 0);
 }
 
 function trim(stringToTrim) {

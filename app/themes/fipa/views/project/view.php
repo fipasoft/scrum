@@ -21,6 +21,10 @@ $this->breadcrumbs=array(
  <?php
     echo CHtml::link('Editar <img src="'.Yii::app()->theme->baseUrl.'/img/system/editar.png"/>', 
                         array('project/update/'.$model->id));
+ ?> / 
+ <?php
+    echo CHtml::link('Product backlog <img src="'.Yii::app()->theme->baseUrl.'/img/system/marcador.png"/>', 
+                        array('project/productbacklog/'.$model->id));
  ?>
 </div>
 <br/>

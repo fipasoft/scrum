@@ -138,8 +138,26 @@ class PermisosController extends Controller
                 $task = $auth->createTask($controlador);
                 
                 $auth->createOperation($controlador.'Noexiste','Indice del controlador ' .$controlador.' .');
+                $auth->createOperation($controlador.'Nostory','Indice del controlador ' .$controlador.' .');
             
                 $task->addChild($controlador.'Noexiste');
+                $task->addChild($controlador.'Nostory');
+                $administrador->addChild($controlador);
+                
+                //story
+                $controlador = 'story';
+                $task = $auth->createTask($controlador);
+                
+                $auth->createOperation($controlador.'View','Vista del controlador ' .$controlador.' .');
+                $auth->createOperation($controlador.'Update','Actualizar del controlador ' .$controlador.' .');
+                $auth->createOperation($controlador.'Create','Crear del controlador ' .$controlador.' .');
+                $auth->createOperation($controlador.'Delete','Eliminar del controlador ' .$controlador.' .');
+            
+                $task->addChild($controlador.'View');
+                $task->addChild($controlador.'Update');
+                $task->addChild($controlador.'Create');
+                $task->addChild($controlador.'Delete');
+                
                 $administrador->addChild($controlador);
 					
 				//user

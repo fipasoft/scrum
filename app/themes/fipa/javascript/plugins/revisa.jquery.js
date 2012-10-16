@@ -30,11 +30,22 @@
 		        	var vista = $(this.recipiente).cssClass('getByIndex',1);
 		        	var tbl = $(this.recipiente).cssClass('getByIndex',2);
 		        	var cmp = $(this.recipiente).cssClass('getByIndex',3);
-		        	$(obj.recipiente).find('div.recipiente').html('<img src="' + $('#YIIthemeUrl').val() + 'img/system/spin.gif" />');
-		        	$.get($('#YIIbaseUrl').val() + 'revisa/' + vista, { tabla: tbl, campo: cmp, valor: txt.val()},
-	                function(data) {
-	                  $(obj.recipiente).find('div.recipiente').html(data); 
-		        	});
+		        	
+		        	if(vista == "noExiste"){
+			        	$(obj.recipiente).find('div.recipiente').html('<img src="' + $('#YIIthemeUrl').val() + 'img/system/spin.gif" />');
+			        	$.get($('#YIIbaseUrl').val() + 'revisa/' + vista, { tabla: tbl, campo: cmp, valor: txt.val()},
+		                function(data) {
+		                  $(obj.recipiente).find('div.recipiente').html(data); 
+			        	});
+        			}else{
+    		        	var pj_id = $(this.recipiente).cssClass('getByIndex',4);
+    		        	
+        				$(obj.recipiente).find('div.recipiente').html('<img src="' + $('#YIIthemeUrl').val() + 'img/system/spin.gif" />');
+			        	$.get($('#YIIbaseUrl').val() + 'revisa/' + vista, { tabla: tbl, campo: cmp, valor: txt.val(), project_id: pj_id},
+		                function(data) {
+		                  $(obj.recipiente).find('div.recipiente').html(data); 
+			        	});
+        			}
         		}else{
 	                  $(obj.recipiente).find('div.recipiente').html('<input type="hidden" id="disponible" name="disponible" value="1" /><span class="true">Disponible</span>');
         		}

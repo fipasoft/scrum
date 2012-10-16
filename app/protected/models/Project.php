@@ -151,4 +151,39 @@ class Project extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	/**
+     * Indica si la historia especificada ya existe en el proyecto
+     * @param INTEGER $project_id Indica el ID del proyecto.
+     * @param INTEGER $number Indica el número de la historia. 
+     * @return Bool En caso de que exista True sino False
+     */
+	public static function existsStory($project_id, $number){
+		$sql =    "SELECT ".
+		          "story.* ".
+		          "FROM pbacklog ".
+		          "INNER JOIN story ON pbacklog.story_id = story.id ".
+		          "WHERE ".
+		          "pbacklog.project_id = '".$project_id."' AND story.number = '".$number."'";
+		          
+		$story = Story::model()->findBySql($sql);
+		return ($story->id != "");
+	}
+	
+	 /**
+     * Obtiene las historias ligadas al proyecto 
+     * @return Story[] lista con las historias
+     */
+	public function stories(){
+		$sql =    "SELECT ".
+                  "story.* ".
+                  "FROM pbacklog ".
+                  "INNER JOIN story ON pbacklog.story_id = story.id ".
+                  "WHERE ".
+                  "pbacklog.project_id = '".$this->id."' ".
+		          "ORDER BY number";
+                  
+        return Story::model()->findAllBySql($sql);
+        
+	}
 }

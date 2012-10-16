@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "cstory".
+ * This is the model class for table "size".
  *
- * The followings are the available columns in table 'cstory':
+ * The followings are the available columns in table 'size':
  * @property integer $id
  * @property string $key
  * @property string $name
@@ -11,12 +11,11 @@
  * The followings are the available model relations:
  * @property Story[] $stories
  */
-class Cstory extends CActiveRecord
+class Size extends CActiveRecord
 {
-	public $filters;
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return Cstory the static model class
+	 * @return Size the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -28,7 +27,7 @@ class Cstory extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'cstory';
+		return 'size';
 	}
 
 	/**
@@ -56,7 +55,7 @@ class Cstory extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'stories' => array(self::HAS_MANY, 'Story', 'cstory_id'),
+			'stories' => array(self::HAS_MANY, 'Story', 'size_id'),
 		);
 	}
 
@@ -95,7 +94,7 @@ class Cstory extends CActiveRecord
    public static function DropDownListElements(){
         $criteria = new CDbCriteria();
         $criteria->order = "name ASC";
-        $items = Cstory::model()->findAll($criteria);
+        $items = Size::model()->findAll($criteria);
         $lista = array();
         $lista[""] = "";
         foreach ($items as $item) {

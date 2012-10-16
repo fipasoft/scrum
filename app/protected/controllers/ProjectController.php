@@ -148,19 +148,16 @@ class ProjectController extends Controller
     public function actionProductbacklog($id)
     {
         try{
+        	//Verifica si hay algo cargado en la cache del paginador,
+	        //si es asi redirecciona a la pagina indicada
+	        Utils::cargaCache($this -> operacion);
+        	
             $model=$this->loadModel($id);
-    
-            // Uncomment the following line if AJAX validation is needed
-            // $this->performAjaxValidation($model);
-    
-            if(isset($_POST['Project']))
-            {
-
-            }
     
             $this->render('productbacklog',array(
                 'model'=>$model,
             ));
+            
         }catch(Exception $e){
             throw new CHttpException("de sistema ", $e -> getMessage());
         }

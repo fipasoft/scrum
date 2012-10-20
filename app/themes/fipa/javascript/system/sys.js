@@ -79,7 +79,7 @@
 				timeText: 'Tiempo',
 				hourText: 'Hora',
 				minuteText: 'Мinutos',
-				secondText: 'Segubdos',
+				secondText: 'Segundos',
 				currentText: 'Actual',
 				closeText: 'Hecho',
 				dateFormat : 'dd/mm/yy',

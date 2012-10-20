@@ -48,11 +48,16 @@ $this->breadcrumbs=array(
             <td class="centrar"><?php echo $story->sstory->name; ?></td>
             <td class="centrar"><?php echo $story->cstory->name; ?></td>
             <td class="centrar">
+            
+            <a href="<?php echo Yii::app()->baseUrl ?>/story/tasks/<?php echo $story->id; ?>">
+                <img src="<?php echo Yii::app()->theme->baseUrl ?>/img/system/experiencia.png" />
+            </a>
+            
             <a href="<?php echo Yii::app()->baseUrl ?>/story/update/<?php echo $story->id; ?>">
                 <img src="<?php echo Yii::app()->theme->baseUrl ?>/img/system/editar.png" />
             </a>
             
-            <a href="<?php echo Yii::app()->baseUrl ?>/story/delete/<?php echo $story->id; ?>">
+            <a class="deleteStory" href="<?php echo Yii::app()->baseUrl ?>/story/delete/<?php echo $story->id; ?>">
                 <img src="<?php echo Yii::app()->theme->baseUrl ?>/img/system/eliminar.png" />
             </a>
             </td>

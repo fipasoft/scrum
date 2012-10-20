@@ -152,6 +152,24 @@ class PermisosController extends Controller
                 $auth->createOperation($controlador.'Update','Actualizar del controlador ' .$controlador.' .');
                 $auth->createOperation($controlador.'Create','Crear del controlador ' .$controlador.' .');
                 $auth->createOperation($controlador.'Delete','Eliminar del controlador ' .$controlador.' .');
+                $auth->createOperation($controlador.'Tasks','Tareas del controlador ' .$controlador.' .');
+            
+                $task->addChild($controlador.'View');
+                $task->addChild($controlador.'Update');
+                $task->addChild($controlador.'Create');
+                $task->addChild($controlador.'Delete');
+                $task->addChild($controlador.'Tasks');
+                
+                $administrador->addChild($controlador);
+                
+                //task
+                $controlador = 'task';
+                $task = $auth->createTask($controlador);
+                
+                $auth->createOperation($controlador.'View','Vista del controlador ' .$controlador.' .');
+                $auth->createOperation($controlador.'Update','Actualizar del controlador ' .$controlador.' .');
+                $auth->createOperation($controlador.'Create','Crear del controlador ' .$controlador.' .');
+                $auth->createOperation($controlador.'Delete','Eliminar del controlador ' .$controlador.' .');
             
                 $task->addChild($controlador.'View');
                 $task->addChild($controlador.'Update');

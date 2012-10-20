@@ -119,4 +119,15 @@ class Story extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+   /**
+    * Obtiene las tareas que componen la historia 
+    */
+	public function tasks(){
+        $criteria = new CDbCriteria();
+        $criteria->condition = "story_id = '".$this->id."'";
+        $criteria->order = "id";
+		
+		return Task::model()->findAll($criteria);
+	}
 }

@@ -186,4 +186,16 @@ class Project extends CActiveRecord
         return Story::model()->findAllBySql($sql);
         
 	}
+	
+   public function TeamDropDownListElements(){
+        $criteria = new CDbCriteria();
+        $criteria->condition = "project_id = '".$this->id."'";
+        $items = Team::model()->findAll($criteria);
+        $lista = array();
+        $lista[""] = "";
+        foreach ($items as $item) {
+            $lista[$item->id] = $item->users->login;
+        }
+        return $lista;
+    }
 }

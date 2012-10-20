@@ -1,4 +1,6 @@
 <?php
+Yii::import('application.extensions.*');
+require_once ('utilerias/main.php');
 
 class StoryController extends Controller
 {
@@ -17,18 +19,7 @@ class StoryController extends Controller
 			'accessControl', // perform access control for CRUD operations
 		);
 	}
-
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
+	
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -130,6 +121,32 @@ class StoryController extends Controller
             throw new CHttpException("de sistema ", $e -> getMessage());
         }
 	}
+	
+   /**
+     * Muestra las tareas ligadas a la historia
+     * @param integer $id el ID de la historia
+     */
+    public function actionTasks($id)
+    {
+        try{
+        	 //Verifica si hay algo cargado en la cache del paginador,
+	        //si es asi redirecciona a la pagina indicada
+            $task = new Task();
+	        Utils::cargaCache($this -> operacion);
+        
+        
+        
+            $model=$this->loadModel($id);
+            $this->render('tasks',array(
+                'model'=>$model,
+                'project'=>$model->pbacklogs[0]->project,
+                'task'=>$task,
+                'tasks'=>$task->tasksPerStory($model->id)
+            ));
+        }catch(Exception $e){
+            throw new CHttpException("de sistema ", $e -> getMessage());
+        }
+    }
 
 	/**
 	 * Deletes a particular model.

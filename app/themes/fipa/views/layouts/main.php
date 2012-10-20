@@ -116,6 +116,10 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 						);
 			?>
 			</div><!-- myslidemenu-->
+			<div id="SCiclo">
+    
+                <a href="<?php echo $yiiPath ?>site/logout">Cerrar sesi&oacute;n</a> 
+            </div>
 			</div>
 			<?php }else{ ?>
 				<div id="loginBan"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/system/login.png" /></div>

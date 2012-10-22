@@ -12,6 +12,11 @@
         <?php echo $form->label($model,'Categor&iacute;a'); ?><span class="obligatorio">*</span><br />
         <?php echo $form->dropDownList($model,'cstory_id',Cstory::DropDownListElements()); ?>
     </div>
+    
+    <div class="row">
+        <?php echo $form->label($model,'Estado'); ?><span class="obligatorio">*</span><br />
+        <?php echo $form->dropDownList($model,'sstory_id',Sstory::DropDownListElements()); ?>
+    </div>
 
     <div class="row">
          <div class="revisa noStory Story number <?php echo $project->id;?>">

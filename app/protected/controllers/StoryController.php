@@ -98,6 +98,7 @@ class StoryController extends Controller
 			if(isset($_POST['Story']))
 			{
 	                $model->size_id = $_POST['Story']['size_id'];
+	                $model->sstory_id = $_POST['Story']['sstory_id'];
 	                $model->weight = $_POST['Story']['weight'];
 	                $model->number = $_POST['Story']['number'];
 	                $model->cstory_id = $_POST['Story']['cstory_id'];
